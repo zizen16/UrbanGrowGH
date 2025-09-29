@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Placement : MonoBehaviour
 {
+    CameraManager camManager;
+
     public bool isValid;
     public bool isInteracted;
     public LayerMask placementMask;
@@ -16,7 +18,7 @@ public class Placement : MonoBehaviour
 
     private void Awake()
     {
-
+        camManager = BuilderManager.Instance.GetComponent<CameraManager>();
         isValid = true;
         isInteracted = false;
         timeHold = 0;
@@ -24,7 +26,11 @@ public class Placement : MonoBehaviour
     }
 
     private void Update()
-    {   
+    {
+        if (isInteracted && Input.GetKeyDown(KeyCode.Backspace)) {
+            camManager.switchCam(camManager.mainCam);
+            isInteracted=false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,7 +51,6 @@ public class Placement : MonoBehaviour
                 blockedObjects = 0;
                 isValid = true;
             }
-
         }
     }
 

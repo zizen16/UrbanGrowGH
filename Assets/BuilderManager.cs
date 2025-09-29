@@ -87,15 +87,14 @@ public class BuilderManager : MonoBehaviour
                     if (p.timeHold >= 1)
                         {
                             print(p.timeHold);
-                            p.isInteracted = true;
+                            //p.isInteracted = true;
+                            Debug.Log("dawg");
 
                             CameraManager.switchCam(CameraManager.followCam);
-                            CameraManager.currentCam.transform.position = p.transform.position;
+                            Vector3 magicmagic = p.transform.position - new Vector3(-10,-10,-10);
+                            Debug.Log(magicmagic.x+ "," + magicmagic.y +","+ magicmagic.z);
+                            CameraManager.currentCam.transform.position = magicmagic;
                         }
-                }
-                else if (Input.GetKeyDown(KeyCode.Backspace) && p.isInteracted)
-                {
-                    p.isInteracted = false;
                 }
                 else
                 {
