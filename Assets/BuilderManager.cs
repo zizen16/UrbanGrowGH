@@ -88,10 +88,12 @@ public class BuilderManager : MonoBehaviour
                         {
                             print(p.timeHold);
                             p.isInteracted = true;
+                            p.ButtonsUI.SetActive(true);
+
                             Collider boxOffset = p.GetComponent<Collider>();
                             Vector3 offsetPos = p.transform.position + new Vector3(19 ,boxOffset.bounds.size.y+6, 19);
                             CameraManager.switchCam(CameraManager.followCam);
-                            CameraManager.currentCam.transform.position = offsetPos;
+                            CameraManager.followCam.transform.position = offsetPos;
                         }
                 }
                 else
