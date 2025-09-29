@@ -87,13 +87,11 @@ public class BuilderManager : MonoBehaviour
                     if (p.timeHold >= 1)
                         {
                             print(p.timeHold);
-                            //p.isInteracted = true;
-                            Debug.Log("dawg");
-
+                            p.isInteracted = true;
+                            Collider boxOffset = p.GetComponent<Collider>();
+                            Vector3 offsetPos = p.transform.position + new Vector3(19 ,boxOffset.bounds.size.y+6, 19);
                             CameraManager.switchCam(CameraManager.followCam);
-                            Vector3 magicmagic = p.transform.position - new Vector3(-10,-10,-10);
-                            Debug.Log(magicmagic.x+ "," + magicmagic.y +","+ magicmagic.z);
-                            CameraManager.currentCam.transform.position = magicmagic;
+                            CameraManager.currentCam.transform.position = offsetPos;
                         }
                 }
                 else
