@@ -58,7 +58,6 @@ public class BuilderManager : MonoBehaviour
                 //place furniture
                 if (Input.GetMouseButtonDown(0))
                 {
-
                     if (p.isValid)
                     {
                         selectedBuild = null;
@@ -69,7 +68,6 @@ public class BuilderManager : MonoBehaviour
                         print("Not Valid");
                     }
                 }
-
             }
             else if (toBuild.activeSelf) toBuild.SetActive(false);
         }
@@ -78,18 +76,22 @@ public class BuilderManager : MonoBehaviour
         RaycastHit placeHit;
         if (Physics.Raycast(placeRay, out placeHit, 1000, placementMask))
         {
-            if (placeHit.collider.gameObject.tag == "Placements") { 
+            if (placeHit.collider.gameObject.tag == "Placements") { //hovered
+
                 Placement p = placeHit.collider.gameObject.GetComponent<Placement>();
+
                 if (p != null) { 
                     if (Input.GetMouseButton(0) && !p.isInteracted)
-                {
+                    {
                     p.timeHold += Time.deltaTime;
                     if (p.timeHold >= 1)
-                        {
+                        {   
+                            //interaction/furniture is selected
                             print(p.timeHold);
                             p.isInteracted = true;
                             p.ButtonsUI.SetActive(true);
 
+                            //camera position after interacted
                             Collider boxOffset = p.GetComponent<Collider>();
                             Vector3 offsetPos = p.transform.position + new Vector3(19 ,boxOffset.bounds.size.y+6, 19);
                             CameraManager.switchCam(CameraManager.followCam);

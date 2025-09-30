@@ -36,7 +36,6 @@ public class Placement : MonoBehaviour
         timeHold = 0;
 
         //Line
-
         objectRenderer = GetComponent<Renderer>();
         objectRenderer.material = defaultMaterial;
 
@@ -49,13 +48,16 @@ public class Placement : MonoBehaviour
         Vector3 rotateTrack = Quaternion.Lerp(Buttons.rotation, lookR, Time.deltaTime * 10).eulerAngles;
         Buttons.rotation = Quaternion.Euler(rotateTrack.x, rotateTrack.y, rotateTrack.z);
 
+
         if (isInteracted && Input.GetKeyDown(KeyCode.Backspace))
-        {
+        {   
+            //disable interaction
             camManager.switchCam(camManager.mainCam);
             isInteracted = false;
             ButtonsUI.SetActive(false);
         }
 
+        
         //Line maybe force update?
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -69,7 +71,6 @@ public class Placement : MonoBehaviour
                     objectRenderer.material = outlineMaterial;
                     isHovered = true;
                 }
-
                 // Optional: detect hold
                 if (Input.GetMouseButton(0)) // left click held
                 {
