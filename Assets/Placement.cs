@@ -19,11 +19,11 @@ public class Placement : MonoBehaviour
     public RectTransform Buttons;
     public GameObject ButtonsUI;
 
-    [Header(" Line Thingy")]
+    /*[Header(" Line Thingy")]
     public Material defaultMaterial;
     public Material outlineMaterial;
     private Renderer objectRenderer;
-    private bool isHovered = false;
+    private bool isHovered = false;*/
 
 
 
@@ -36,8 +36,8 @@ public class Placement : MonoBehaviour
         timeHold = 0;
 
         //Line
-        objectRenderer = GetComponent<Renderer>();
-        objectRenderer.material = defaultMaterial;
+        /*objectRenderer = GetComponent<Renderer>();
+        objectRenderer.material = defaultMaterial;*/
 
     }
 
@@ -51,15 +51,12 @@ public class Placement : MonoBehaviour
 
         if (isInteracted && Input.GetKeyDown(KeyCode.Backspace))
         {   
-            //disable interaction
-            camManager.switchCam(camManager.mainCam);
-            isInteracted = false;
-            ButtonsUI.SetActive(false);
+            DisableInteraction();
         }
 
-        
+
         //Line maybe force update?
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 100f, placementMask))
@@ -90,8 +87,13 @@ public class Placement : MonoBehaviour
             objectRenderer.material = defaultMaterial;
             isHovered = false;
             timeHold = 0;
-        }
+        }*/
 
+    }
+    public void DisableInteraction() {
+        camManager.switchCam(camManager.mainCam);
+        isInteracted = false;
+        ButtonsUI.SetActive(false);
     }
 
     public void MovePlacement() {

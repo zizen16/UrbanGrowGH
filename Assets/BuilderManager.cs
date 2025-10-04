@@ -97,11 +97,11 @@ public class BuilderManager : MonoBehaviour
                             CameraManager.switchCam(CameraManager.followCam);
                             CameraManager.followCam.transform.position = offsetPos;
                         }
-                }
-                else
-                {
+                    }
+                    else
+                    {
                     p.timeHold = 0;
-                }
+                    }
                 }
                 
             }
@@ -109,7 +109,6 @@ public class BuilderManager : MonoBehaviour
         }
 
     }
-
     public void setBuild(GameObject prefab) { 
         selectedBuild = prefab;
         showBuild();
