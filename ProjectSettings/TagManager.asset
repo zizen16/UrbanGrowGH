@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Placements
   - Wall
+  - Apartment
+  - GPatch
   layers:
   - Default
   - TransparentFX

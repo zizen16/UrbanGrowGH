@@ -19,6 +19,7 @@ public class PlayerControl : MonoBehaviour
     CharacterController control;
     Vector3 velocity;
     bool isGround;
+
     void Start()
     {
         control = GetComponent<CharacterController>();
@@ -60,5 +61,41 @@ public class PlayerControl : MonoBehaviour
         }
         transform.Rotate(Vector3.up * mouseX);
 
+    }
+
+    /*private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Apartment")
+        {
+            print("daadadad");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIManager2.instance.playerEntered = true;
+            }
+        }
+        else if (other.gameObject.tag == "GPatch") {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                
+            }
+        }
+    }*/
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Apartment")
+        {
+            print("daadadad");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIManager2.instance.playerEnteredApartment = true;
+            }
+        }
+        else if (other.gameObject.tag == "GPatch")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UIManager2.instance.playerEnteredGarden = true;
+            }
+        }
     }
 }
