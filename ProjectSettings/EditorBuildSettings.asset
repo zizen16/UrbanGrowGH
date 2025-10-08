@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Exploration.unity
     guid: 2a1427fb0766a6b4699b47a6fc5499cc
+  - enabled: 1
+    path: Assets/Scenes/RooftopGarden1.unity
+    guid: 48376b44a73361f4586ec90f44491dda
+  - enabled: 1
+    path: Assets/Scenes/GardenPatch1.unity
+    guid: 6289de8ddbd7787409be826b06ae675a
   m_configObjects: {}

@@ -7,6 +7,7 @@ public class PlantSeed : MonoBehaviour
     public GameObject PlantUI;
     public GameObject buttonHarvest;
     public GameObject buttonWater;
+    public GameObject buttonDiagnose;
 
     Placement placement;
 
@@ -31,9 +32,11 @@ public class PlantSeed : MonoBehaviour
     */
 
     public bool isseeded;
-    public bool isplanted;
     public bool isgrowing;
     public bool isWatered;
+    public bool isDiagnosed;
+    public bool fullgrown;
+
     public bool failMinigame;
     //public bool isChosen;
 
@@ -72,6 +75,49 @@ public class PlantSeed : MonoBehaviour
             }
         }
 
+        if (isgrowing && isDiagnosed) {
+            if (fruitPlant)
+            {
+                switch (plantValue)
+                {
+                    case 0:
+                        fruitGrowing[1].SetActive(false);
+                        fruitPlanted[plantValue].SetActive(true);
+                        break;
+                    case 1:
+                        fruitGrowing[1].SetActive(false);
+                        fruitPlanted[plantValue].SetActive(true);
+                        break;
+                    case 2:
+                        fruitGrowing[1].SetActive(false);
+                        fruitPlanted[plantValue].SetActive(true);
+                        break;
+                    case 3:
+                        fruitGrowing[1].SetActive(false);
+                        fruitPlanted[plantValue].SetActive(true);
+                        break;
+                    case 4:
+                        fruitGrowing[1].SetActive(false);
+                        fruitPlanted[plantValue].SetActive(true);
+                        break;
+                }
+
+                plantedPlant = fruitPlanted[plantValue];
+
+            }
+            else if (flowerPlant)
+            {
+                flowerGrowing[0].SetActive(false);//switch case for different flower plant val*
+                flowerPlanted[0].SetActive(true);
+
+                plantedPlant = flowerPlanted[0];
+            }
+            fullgrown = true;
+            isgrowing = false;
+
+        }
+
+
         if (!isWatered && isseeded)
         {
             buttonWater.SetActive(true);
@@ -80,19 +126,37 @@ public class PlantSeed : MonoBehaviour
             buttonWater.SetActive(false);
         }
 
+        if (!isDiagnosed && isseeded && isWatered)
+        {
+            buttonDiagnose.SetActive(true);
+        }
+        else {
+            buttonDiagnose.SetActive(false);
+        }
+
+        if (fullgrown && isseeded)
+        {
+            buttonHarvest.SetActive(true);
+        }
+        else
+        {
+            buttonHarvest.SetActive(false);
+        }
+
         if (failMinigame) {
             isseeded = false;
             isgrowing = false;
-            isplanted = false;
             isWatered = false;
             if (fruitPlant)
             {
+                fruitPlant = false;
                 fruitGrowing[0].SetActive(false);
                 fruitGrowing[1].SetActive(false);
                 fruitPlanted[plantValue].SetActive(false);
             }
             else if (flowerPlant)
             {
+                flowerPlant = false;
                 flowerGrowing[0].SetActive(false);
                 flowerPlanted[0].SetActive(false);
             }
@@ -148,13 +212,18 @@ public class PlantSeed : MonoBehaviour
             fruitGrowing[1].SetActive(true);
             fruitPlanted[plantValue].SetActive(false);
             isgrowing = true;
+            fullgrown = false;
+
+            isDiagnosed = false;
         }
         else if (flowerPlant) {
             //growTimer = 0;
             flowerGrowing[0].SetActive(true);
             flowerPlanted[0].SetActive(false);
             isgrowing = true;
-            
+            fullgrown = false;
+
+            isDiagnosed = false;
         }
         PlantUI.SetActive(false);
         placement.DisableInteraction();
@@ -165,6 +234,15 @@ public class PlantSeed : MonoBehaviour
         UIManager.Instance.WateringUI.SetActive(true);
         PlantManager.instance.WateringMinigame.SetActive(true);
         PlantManager.instance.WateringMinigame.GetComponentInChildren<Watering>().ResetStat();
+        placement.DisableInteraction();
+    }
+
+    public void DiagnosePlant()
+    {
+        UIManager.Instance.RoomUI.SetActive(false);
+        UIManager.Instance.DiagnoseUI.SetActive(true);
+        PlantManager.instance.DiagnoseMinigame.SetActive(true);
+        PlantManager.instance.DiagnoseMinigame.GetComponentInChildren<Diagnose>().ResetDiagnose();
         placement.DisableInteraction();
     }
     public void plantButton()

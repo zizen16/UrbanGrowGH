@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     void Start()
     {
         control = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -63,36 +63,22 @@ public class PlayerControl : MonoBehaviour
 
     }
 
-    /*private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Apartment")
-        {
-            print("daadadad");
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                UIManager2.instance.playerEntered = true;
-            }
-        }
-        else if (other.gameObject.tag == "GPatch") {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                
-            }
-        }
-    }*/
+    
     private void OnTriggerStay(Collider other)
     {
+
         if (other.gameObject.tag == "Apartment")
         {
-            print("daadadad");
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKey(KeyCode.E))
             {
                 UIManager2.instance.playerEnteredApartment = true;
+
             }
         }
         else if (other.gameObject.tag == "GPatch")
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            print("daadadad");
+            if (Input.GetKey(KeyCode.E))
             {
                 UIManager2.instance.playerEnteredGarden = true;
             }

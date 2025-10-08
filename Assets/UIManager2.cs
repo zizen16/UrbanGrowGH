@@ -11,6 +11,7 @@ public class UIManager2 : MonoBehaviour
     public GameObject GardenPanel;
 
     public bool playerEnteredApartment;
+    
     public bool playerEnteredGarden;
     // Start is called before the first frame update
     private void Awake()
@@ -27,12 +28,15 @@ public class UIManager2 : MonoBehaviour
     {
         if (playerEnteredApartment)
         {
+            
             ApartmentPanel.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
+
+
         }
         else {
             ApartmentPanel.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.lockState = CursorLockMode.Locked;
         }
 
         if (playerEnteredGarden) {
@@ -42,6 +46,10 @@ public class UIManager2 : MonoBehaviour
         else
         {
             GardenPanel.SetActive(false);
+            //Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        if (!playerEnteredApartment && !playerEnteredGarden) {
             Cursor.lockState = CursorLockMode.Locked;
         }
     }

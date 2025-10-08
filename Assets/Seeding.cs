@@ -36,14 +36,14 @@ public class Seeding : MonoBehaviour
 
         timeDrop += Time.deltaTime;
         Vector3 posDrop = new Vector3(transform.position.x, transform.position.y+5, transform.position.z);
-        if (timeDrop > 5) {
+        if (timeDrop > 2) {
             if (Input.GetMouseButton(0)) { 
                 Instantiate(seed, posDrop, Quaternion.identity);
                 timeDrop = 0;
             }
         }
 
-        dropFill.fillAmount = timeDrop / 5;
+        dropFill.fillAmount = timeDrop / 2;
     }
 
     void MoveTowardPoint()

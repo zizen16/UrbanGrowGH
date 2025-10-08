@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject RoomUI;
     public GameObject WateringUI;
     public GameObject SeedUI;
+    public GameObject DiagnoseUI;
 
     [Header("Watering Win/Lose Panel")]
     public GameObject WateringWin;
@@ -19,6 +20,9 @@ public class UIManager : MonoBehaviour
     [Header("Seed Win/Lose Panel")]
     public GameObject SeedWin;
     public GameObject SeedLose;
+    [Header("Diagnose Win/Lose Panel")]
+    public GameObject DiagnoseWin;
+    public GameObject DiagnoseLose;
 
     public GameObject furniturePanel;
     public GameObject gardeningPanel;
@@ -73,6 +77,13 @@ public class UIManager : MonoBehaviour
         {
             SeedUI.SetActive(false);
             PlantManager.instance.SeedMinigame.SetActive(false);
+            PlantManager.instance.chosenPlant = null;
+        }
+
+        if (DiagnoseUI.activeInHierarchy && PlantManager.instance.DiagnoseMinigame.activeInHierarchy)
+        {
+            DiagnoseUI.SetActive(false);
+            PlantManager.instance.DiagnoseMinigame.SetActive(false);
             PlantManager.instance.chosenPlant = null;
         }
     }

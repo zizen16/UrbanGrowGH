@@ -10,17 +10,21 @@ public class SeedSpot : MonoBehaviour
 
     public TextMeshProUGUI seedplantTxt;
     public TextMeshProUGUI seedmissTxt;
+    public int seedmissed;
+
 
     private void Update()
     {
         
         SeedBanish seedBanish = GameObject.FindAnyObjectByType<SeedBanish>();
         PlantSeed ps = PlantManager.instance.chosenPlant.GetComponent<PlantSeed>();
+        
         if (seedBanish.seedBanished >= 3) {
             UIManager.Instance.SeedLose.SetActive(true);
             ps.flowerPlant = false;
             ps.fruitPlant = false;
             ps.plantValue = 0;
+            seedBanish.seedBanished = 0;
         }
 
         if (seedRequired <= seedPlanted) {

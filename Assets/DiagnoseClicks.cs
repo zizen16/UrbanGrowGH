@@ -8,5 +8,6 @@ public class DiagnoseClicks : MonoBehaviour
     private void OnMouseDown()
     {
         gameObject.SetActive(false);
+        Diagnose.Instance.amountToRemove--;
     }
 }
