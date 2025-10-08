@@ -8,6 +8,11 @@ TagManager:
   - Wall
   - Apartment
   - GPatch
+  - SeedSpot
+  - Worm
+  - BLeaf
+  - Fly
+  - Seed
   layers:
   - Default
   - TransparentFX

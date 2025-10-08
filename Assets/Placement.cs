@@ -94,6 +94,7 @@ public class Placement : MonoBehaviour
         camManager.switchCam(camManager.mainCam);
         isInteracted = false;
         ButtonsUI.SetActive(false);
+
     }
 
     public void MovePlacement() {

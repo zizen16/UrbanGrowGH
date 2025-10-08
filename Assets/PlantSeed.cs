@@ -6,6 +6,7 @@ public class PlantSeed : MonoBehaviour
 {
     public GameObject PlantUI;
     public GameObject buttonHarvest;
+    public GameObject buttonWater;
 
     Placement placement;
 
@@ -22,22 +23,30 @@ public class PlantSeed : MonoBehaviour
     public bool fruitPlant;
     public bool flowerPlant;
 
-    public bool isgrowing;
+    /*public bool isgrowing;
     public bool isplanted;
     public bool fullgrown;
     public float growTimer;
     public float plantTime;//for different types of plant
+    */
+
+    public bool isseeded;
+    public bool isplanted;
+    public bool isgrowing;
+    public bool isWatered;
+    public bool failMinigame;
+    //public bool isChosen;
 
     void Start()
     {
-        isplanted = false;
+        isseeded = false;
         placement = GetComponent<Placement>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isgrowing && isplanted)
+        if (isgrowing && isseeded)
         {
             if (fruitPlant)
             {
@@ -48,56 +57,10 @@ public class PlantSeed : MonoBehaviour
                 flowerGrowing[0].SetActive(true);//switch case for different flower plant val
             }
 
-            growTimer += Time.deltaTime;
         }
-        else if (!isgrowing && isplanted) { 
-            growTimer += Time.deltaTime;
-        }
-
-
-        if (growTimer > 5 && growTimer > 2) // change 5 into plantTime different val has different growth time
+        
+        if (isgrowing && isWatered)
         {
-
-            if (fruitPlant)
-            {
-                switch (plantValue)
-                {
-                    case 0:
-                        fruitGrowing[1].SetActive(false);
-                        fruitPlanted[plantValue].SetActive(true);
-                        break;
-                    case 1:
-                        fruitGrowing[1].SetActive(false);
-                        fruitPlanted[plantValue].SetActive(true);
-                        break;
-                    case 2:
-                        fruitGrowing[1].SetActive(false);
-                        fruitPlanted[plantValue].SetActive(true);
-                        break;
-                    case 3:
-                        fruitGrowing[1].SetActive(false);
-                        fruitPlanted[plantValue].SetActive(true);
-                        break;
-                    case 4:
-                        fruitGrowing[1].SetActive(false);
-                        fruitPlanted[plantValue].SetActive(true);
-                        break;
-                }
-
-                plantedPlant = fruitPlanted[plantValue];
-
-            }
-            else if (flowerPlant) {
-                flowerGrowing[0].SetActive(false);//switch case for different flower plant val*
-                flowerPlanted[0].SetActive(true);
-
-                plantedPlant = flowerPlanted[0];
-            }
-            fullgrown = true;
-            isgrowing=false;
-        }
-
-        else if (growTimer > 2) {
             if (fruitPlant)
             {
                 fruitGrowing[0].SetActive(false);
@@ -109,49 +72,54 @@ public class PlantSeed : MonoBehaviour
             }
         }
 
-        if (fullgrown)
+        if (!isWatered && isseeded)
         {
-            buttonHarvest.SetActive(true);
+            buttonWater.SetActive(true);
         }
         else {
-            buttonHarvest.SetActive(false);
+            buttonWater.SetActive(false);
         }
-        
-    }
 
-    public void plantButton() {
-        if (!isplanted)
-        {
-            PlantUI.SetActive(true);
+        if (failMinigame) {
+            isseeded = false;
+            isgrowing = false;
+            isplanted = false;
+            isWatered = false;
+            if (fruitPlant)
+            {
+                fruitGrowing[0].SetActive(false);
+                fruitGrowing[1].SetActive(false);
+                fruitPlanted[plantValue].SetActive(false);
+            }
+            else if (flowerPlant)
+            {
+                flowerGrowing[0].SetActive(false);
+                flowerPlanted[0].SetActive(false);
+            }
+            failMinigame = false;
         }
-        else {
-            print("already planted");
-        }
-        
+
     }
 
     public void plantVal0() {
         plantValue = 0;
-        isplanted = true;
+        OpenSeedGame();
         fruitPlant = true;
-        isgrowing = true;
         PlantUI.SetActive(false);
         placement.DisableInteraction();
     }
     public void plantVal1()
     {
         plantValue = 1;
-        isplanted = true;
+        OpenSeedGame();
         fruitPlant = true;
-        isgrowing = true;
         PlantUI.SetActive(false);
         placement.DisableInteraction();
     }
     public void plantVal2()
     {
         plantValue = 2;
-        isplanted = true;
-        isgrowing = true;
+        OpenSeedGame();
         fruitPlant = true;
         PlantUI.SetActive(false);
         placement.DisableInteraction();
@@ -159,8 +127,7 @@ public class PlantSeed : MonoBehaviour
     public void plantVal3()
     {
         plantValue = 3;
-        isplanted = true;
-        isgrowing = true;
+        OpenSeedGame();
         fruitPlant = true;
         PlantUI.SetActive(false);
         placement.DisableInteraction();
@@ -168,8 +135,7 @@ public class PlantSeed : MonoBehaviour
     public void plantVal4()
     {
         plantValue = 4;
-        isplanted = true;
-        isgrowing = true;
+        OpenSeedGame();
         flowerPlant = true;
         PlantUI.SetActive(false);
         placement.DisableInteraction();
@@ -178,19 +144,47 @@ public class PlantSeed : MonoBehaviour
     public void HarvestPlant() {
         if (fruitPlant)
         {
-            growTimer = 0;
+            //growTimer = 0;
             fruitGrowing[1].SetActive(true);
             fruitPlanted[plantValue].SetActive(false);
             isgrowing = true;
         }
         else if (flowerPlant) {
-            growTimer = 0;
+            //growTimer = 0;
             flowerGrowing[0].SetActive(true);
             flowerPlanted[0].SetActive(false);
             isgrowing = true;
             
         }
         PlantUI.SetActive(false);
+        placement.DisableInteraction();
+    }
+
+    public void WaterPlant() {
+        UIManager.Instance.RoomUI.SetActive(false);
+        UIManager.Instance.WateringUI.SetActive(true);
+        PlantManager.instance.WateringMinigame.SetActive(true);
+        PlantManager.instance.WateringMinigame.GetComponentInChildren<Watering>().ResetStat();
+        placement.DisableInteraction();
+    }
+    public void plantButton()
+    {
+        if (!isseeded)
+        {
+            PlantUI.SetActive(true);
+        }
+        else
+        {
+            print("already planted");
+        }
+
+    }
+
+    public void OpenSeedGame() {
+        UIManager.Instance.RoomUI.SetActive(false);
+        UIManager.Instance.SeedUI.SetActive(true);
+        PlantManager.instance.SeedMinigame.SetActive(true);
+        PlantManager.instance.SeedMinigame.GetComponentInChildren<SeedSpot>().ResetStatSeeding();
         placement.DisableInteraction();
     }
 

@@ -17,6 +17,7 @@ public class BuilderManager : MonoBehaviour
     Camera cam;
     public Ray ray;
     public RaycastHit hit;
+    public float ypos;
 
     private void Awake()
     {
@@ -79,7 +80,7 @@ public class BuilderManager : MonoBehaviour
             if (placeHit.collider.gameObject.tag == "Placements") { //hovered
 
                 Placement p = placeHit.collider.gameObject.GetComponent<Placement>();
-
+                PlantSeed ps = placeHit.collider.gameObject.GetComponent<PlantSeed>();
                 if (p != null) { 
                     if (Input.GetMouseButton(0) && !p.isInteracted)
                     {
@@ -90,12 +91,16 @@ public class BuilderManager : MonoBehaviour
                             print(p.timeHold);
                             p.isInteracted = true;
                             p.ButtonsUI.SetActive(true);
-
                             //camera position after interacted
                             Collider boxOffset = p.GetComponent<Collider>();
-                            Vector3 offsetPos = p.transform.position + new Vector3(19 ,boxOffset.bounds.size.y+6, 19);
+                            Vector3 offsetPos = p.transform.position + new Vector3(19 ,boxOffset.bounds.size.y+ypos, 19);
                             CameraManager.switchCam(CameraManager.followCam);
                             CameraManager.followCam.transform.position = offsetPos;
+
+                            if (ps != null) {
+                                PlantManager.instance.chosenPlant = ps.gameObject;
+                            }
+
                         }
                     }
                     else
