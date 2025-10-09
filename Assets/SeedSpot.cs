@@ -24,7 +24,7 @@ public class SeedSpot : MonoBehaviour
             ps.flowerPlant = false;
             ps.fruitPlant = false;
             ps.plantValue = 0;
-            seedBanish.seedBanished = 0;
+            
         }
 
         if (seedRequired <= seedPlanted) {
@@ -45,7 +45,12 @@ public class SeedSpot : MonoBehaviour
     }
 
     public void ResetStatSeeding() {
+        SeedBanish seedBanish = GameObject.FindAnyObjectByType<SeedBanish>();
+        Seeding s = FindAnyObjectByType<Seeding>();
+        s.seedStart = false;
         seedPlanted = 0;
+        seedBanish.seedBanished = 0;
+        UIManager.Instance.SeedContextPanel.SetActive(true);
         UIManager.Instance.SeedWin.SetActive(false);
         UIManager.Instance.SeedLose.SetActive(false);
     }

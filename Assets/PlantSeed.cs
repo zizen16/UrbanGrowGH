@@ -83,23 +83,27 @@ public class PlantSeed : MonoBehaviour
                     case 0:
                         fruitGrowing[1].SetActive(false);
                         fruitPlanted[plantValue].SetActive(true);
+                        PlantManager.instance.tomatoIF = true;
                         break;
                     case 1:
                         fruitGrowing[1].SetActive(false);
                         fruitPlanted[plantValue].SetActive(true);
+                        PlantManager.instance.chiliIF = true;
                         break;
                     case 2:
                         fruitGrowing[1].SetActive(false);
                         fruitPlanted[plantValue].SetActive(true);
+                        PlantManager.instance.eggplantIF = true;
                         break;
                     case 3:
                         fruitGrowing[1].SetActive(false);
                         fruitPlanted[plantValue].SetActive(true);
+                        PlantManager.instance.lemonIF = true;
                         break;
-                    case 4:
+                    /*case 4:
                         fruitGrowing[1].SetActive(false);
                         fruitPlanted[plantValue].SetActive(true);
-                        break;
+                        break;*/
                 }
 
                 plantedPlant = fruitPlanted[plantValue];

@@ -14,6 +14,8 @@ public class Seeding : MonoBehaviour
     public GameObject seed;
     public float timeDrop;
     public Image dropFill;
+
+    public bool seedStart;
     void Start()
     {
         pointRandom = Random.Range(0, movePoints.Length);
@@ -31,13 +33,13 @@ public class Seeding : MonoBehaviour
         {
             //print("point Change");
             pointRandom = Random.Range(0, movePoints.Length);
-            speedRandom = Random.Range(0.1f, 0.5f);
+            speedRandom = Random.Range(0.07f, 0.2f);
         }
 
         timeDrop += Time.deltaTime;
         Vector3 posDrop = new Vector3(transform.position.x, transform.position.y+5, transform.position.z);
         if (timeDrop > 2) {
-            if (Input.GetMouseButton(0)) { 
+            if (Input.GetMouseButton(0)&& seedStart) { 
                 Instantiate(seed, posDrop, Quaternion.identity);
                 timeDrop = 0;
             }

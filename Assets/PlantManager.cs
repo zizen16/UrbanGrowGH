@@ -12,6 +12,8 @@ public class PlantManager : MonoBehaviour
     public GameObject DiagnoseMinigame;
     public GameObject SeedMinigame;
 
+    public bool tomatoIF, chiliIF, eggplantIF, lemonIF, flowerIF;
+
     private void Awake()
     {
         instance = this;

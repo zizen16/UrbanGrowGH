@@ -23,6 +23,7 @@ public class Watering : MonoBehaviour
     public Image minimumAmountBar;
 
     bool start,finish,completed;
+    public bool waterStart;
     PlantSeed ps;
 
     void Start()
@@ -58,7 +59,7 @@ public class Watering : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0)&& waterStart) {
             start = true;
             if (start && !finish) {
                 fillGauge+=0.1f;
@@ -99,14 +100,14 @@ public class Watering : MonoBehaviour
     }
 
     public void ResetStat() {
-
+        waterStart = false;
         start = false;
         finish = false;
         fillGauge = 0;
         minGaugeFill = Random.Range(50, 60);
         maxGaugeFill = Random.Range(70, 80);
         pointRandom = Random.Range(0, movePoints.Length);
-
+        UIManager.Instance.WaterContextPanel.SetActive(true);
         UIManager.Instance.WateringWin.SetActive(false);
         UIManager.Instance.WateringLose.SetActive(false);
         

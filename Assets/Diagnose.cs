@@ -19,13 +19,15 @@ public class Diagnose : MonoBehaviour
     public TextMeshProUGUI removecounts;
     public TextMeshProUGUI TimerUI;
 
+    public bool startDiag;
+
     private void Awake()
     {
         Instance = this;
     }
     void Start()
     {
-        timerCount = 15;
+        timerCount = 45;
         randomCount = Random.Range(0, 5);
         for (int i = 0; i <= randomCount; i++) {
             worms[i].SetActive(true);
@@ -44,7 +46,7 @@ public class Diagnose : MonoBehaviour
         removecounts.text = "To be Removed: " + amountToRemove;
         
 
-        if (!finishedDiagnose) timerCount -= Time.deltaTime;
+        if (!finishedDiagnose && startDiag) timerCount -= Time.deltaTime;
 
         if (timerCount <= 0) { 
             ps.failMinigame = true;
@@ -75,8 +77,9 @@ public class Diagnose : MonoBehaviour
     }
 
     public void ResetDiagnose() {
+        startDiag = false;
         finishedDiagnose=false;
-        timerCount = 15;
+        timerCount = 45;
         randomCount = Random.Range(0, 5);
         for (int i = 0; i <= randomCount; i++)
         {
@@ -84,6 +87,7 @@ public class Diagnose : MonoBehaviour
             leaves[i].SetActive(true);
             flies[i].SetActive(true);
         }
+        UIManager.Instance.DiagContextPanel.SetActive(true);
         UIManager.Instance.DiagnoseLose.SetActive(false);
         UIManager.Instance.DiagnoseWin.SetActive(false);
         amountToRemove = (randomCount + 1) * 3;
